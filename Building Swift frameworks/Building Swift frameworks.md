@@ -1,6 +1,3 @@
-footer: 
-slidenumbers: true
-
 # Building *Swift* frameworks
 
 #### @hpique
@@ -12,7 +9,7 @@ slidenumbers: true
 
 ---
 
-## *i.e.*, no more header search paths!
+## No more header tinkering!
 
 ![](http://media.giphy.com/media/ITnn2IenMv7SE/giphy.gif)
 
@@ -132,13 +129,15 @@ import MyFramework
 
 ---
 
-## We kind of had that already
+## We kind* of had that already
 
 In Objective-C land:
 
 * *Public*: declared in public headers
 * *Internal*: declared in project headers
 * *Private*: declared in implementation files
+
+\* (without enforcing access control)
 
 ---
 
@@ -168,7 +167,7 @@ public struct PublicThing {
 
 ---
 
-## Example
+# Example
 
 Consider a framework with a public function that fetches a string asynchronously. 
 
@@ -538,7 +537,7 @@ More info: *[Swift and Objective-C in the Same Project](https://developer.apple.
 
 ---
 
-## But... frameworks don't have a bridging header!
+## But... Swift frameworks don't have a bridging header!
 
 ![](http://newsbusters7.s3.amazonaws.com/images/2014/July/bardem.jpg)
 
@@ -717,9 +716,29 @@ If you need to use simple cryptography such as MD5 in a framework, check out *[C
 
 ---
 
+# Why test *internals*?
+
+Internals are not public API but they're "public" API within the scope of the framework. Do you always work alone?
+
+Helper functions/extensions/types will most likely internal and are great candidates for unit testing.
+
+```Swift
+extension CGSize {
+	func hnk_aspectFillSize(size: CGSize) -> CGSize { ... }
+}
+```
+
+---
+
 # We shall unit test anyway
 
 1. Add all the framework files to the test target.
 2. Remove the framework from *Target Dependencies* and *Link Binary With Libraries* build phases of the test target (to prevent naming collisions).
 
-You can now test public and internal elements.
+You can now test public and *internal* elements.
+
+---
+
+# Thanks!
+
+#### @hpique
