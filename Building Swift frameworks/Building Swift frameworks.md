@@ -14,6 +14,8 @@ slidenumbers: true
 
 ## *i.e.*, no more header search paths!
 
+![](http://media.giphy.com/media/ITnn2IenMv7SE/giphy.gif)
+
 ---
 
 ## Creating a new framework
@@ -127,6 +129,16 @@ import MyFramework
 * *Public*: accessible everywhere
 * *Internal* (default): accessible within any source file from the defining module, but not outside of that module
 * *Private*: accessible only within its own defining source file
+
+---
+
+## We kind of had that already
+
+In Objective-C land:
+
+* *Public*: declared in public headers
+* *Internal*: declared in project headers
+* *Private*: declared in implementation files
 
 ---
 
@@ -335,7 +347,15 @@ let b : FrameworkB.Thing?
 # Namespace shenanigans
 
 
-What if *FrameworkB*  also defines a public type *FrameworkA*?
+What if *FrameworkB*  also defines a public type named... 
+<br>
+*FrameworkA*
+<br>
+?
+
+![right](http://media.giphy.com/media/NbgeJftsErO5q/giphy.gif)
+
+---
 
 ```Swift
 import FrameworkA
@@ -676,3 +696,30 @@ If you need to use simple cryptography such as MD5 in a framework, check out *[C
 ---
 
 # Unit testing
+
+---
+
+<br>
+## "A limitation of the access control system is that unit tests cannot interact with the classes and methods in an application unless they are marked public."
+[Xcode 6.0 beta 4 release notes](http://ksm.github.io/SwiftInFlux/docs/beta4.pdf)
+
+![right](http://media.giphy.com/media/uTLKbzPlxhF0Q/giphy.gif)
+
+---
+
+> We're aware that our access control design isn't great for unit testing (and this was in the release notes), we're evaluating the situation to see what we can do.
+-- [Chris Lattner](https://devforums.apple.com/message/1010766#1010766)
+
+---
+
+# No excuses
+![](http://divas.ucoz.com/_nw/1/18244733.jpg)
+
+---
+
+# We shall unit test anyway
+
+1. Add all the framework files to the test target.
+2. Remove the framework from *Target Dependencies* and *Link Binary With Libraries* build phases of the test target (to prevent naming collisions).
+
+You can now test public and internal elements.
