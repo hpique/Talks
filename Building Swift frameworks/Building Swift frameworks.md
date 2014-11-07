@@ -93,7 +93,7 @@ From *Build Phases*:
 
 ---
 
-![inline](build-phases.png)
+![](build-phases.png)
 
 ---
 # Finally
@@ -268,8 +268,8 @@ An app *MyApp* that imports *FrameworkA*.
 ```Swift
 import FrameworkA
 
-let a : FrameworkA.Thing?
-let t : Thing?
+var a : FrameworkA.Thing?
+var t : Thing?
 ```
 
 <br>
@@ -283,9 +283,9 @@ import FrameworkA
 
 public class Thing { } 
 
-let a : FrameworkA.Thing?
-let t : Thing?
-let t2 : MyApp.Thing?
+var a : FrameworkA.Thing?
+var t : Thing?
+var t2 : MyApp.Thing?
 ```
 
 <br>
@@ -303,7 +303,7 @@ What if *MyApp* also imports a *FrameworkB* that also defines a public type *Thi
 import FrameworkA
 import FrameworkB
 
-let a : Thing?
+var a : Thing?
 ```
 
 We get a nice error.
@@ -332,9 +332,9 @@ import FrameworkB
 
 public class Thing { } 
 
-let a : FrameworkA.Thing?
-let t : Thing?
-let b : FrameworkB.Thing?
+var a : FrameworkA.Thing?
+var t : Thing?
+var b : FrameworkB.Thing?
 ```
 
 <br>
@@ -360,8 +360,8 @@ What if *FrameworkB*  also defines a public type named...
 import FrameworkA
 import FrameworkB
 
-let a : FrameworkA.Thing?
-let b : FrameworkB.Thing?
+var a : FrameworkA.Thing?
+var b : FrameworkB.Thing?
 ```
 
 We get a misleading error: `'Thing' is not a member type of 'FrameworkA'`
@@ -382,8 +382,8 @@ Then:
 import FrameworkA
 import FrameworkB
 
-let a : ThingA?
-let b : FrameworkB.Thing?
+var a : ThingA?
+var b : FrameworkB.Thing?
 ```
 
 ---
@@ -420,6 +420,8 @@ public static let ErrorDomain = "io.haneke"
 public struct HanekeGlobals {
 	public static let ErrorDomain = "io.haneke"
 }
+
+let s = HanekeGlobals.ErrorDomain
 ```
 ---
 
@@ -434,7 +436,7 @@ public enum ScaleMode {
 
 public struct ImageResizer {
         
-    public let scaleMode: ScaleMode
+    public var scaleMode: ScaleMode
     
 }
 ```
@@ -675,6 +677,10 @@ Importing the C library in a public header of the bridging framework will cause 
 
 ```Swift
 import MyFrameworkBridge
+
+var s : NSString
+...
+let MD5 = s.hnk_MD5String
 ```
 
 ---
